@@ -13,7 +13,7 @@ function moviesAPI(app) {
             const movies = await moviesService.getMovies({ tags });
             res.status(200).json({ data: movies, messages: 'movies listed' });
         } catch (error) {
-            next(err);
+            next(error);
         }
     });
 
@@ -26,7 +26,7 @@ function moviesAPI(app) {
                 messages: 'movie retrieved',
             });
         } catch (error) {
-            next(err);
+            next(error);
         }
     });
 
@@ -39,7 +39,7 @@ function moviesAPI(app) {
                 messages: 'movie created',
             });
         } catch (error) {
-            next(err);
+            next(error);
         }
     });
 
@@ -57,7 +57,7 @@ function moviesAPI(app) {
                 messages: 'movie updated',
             });
         } catch (error) {
-            next(err);
+            next(error);
         }
     });
 
@@ -70,7 +70,7 @@ function moviesAPI(app) {
                 messages: 'movie deleted',
             });
         } catch (error) {
-            next(err);
+            next(error);
         }
     });
 }
