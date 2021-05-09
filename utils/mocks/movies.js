@@ -170,7 +170,7 @@ class MoviesServiceMock {
         return Promise.resolve(moviesMock);
     }
 
-    creteMovie() {
+    createMovie() {
         return Promise.resolve(moviesMock[0]);
     }
 }
