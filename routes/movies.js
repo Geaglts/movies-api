@@ -5,7 +5,7 @@ const {
     movieIdSchema,
     createMovieSchema,
     updateMovieSchema,
-} = require('../schemas/movies');
+} = require('../utils/schemas/movies');
 
 const validationHandler = require('../utils/middleware/validationHandler');
 
@@ -19,7 +19,7 @@ function moviesAPI(app) {
         const { tags } = req.query;
         try {
             const movies = await moviesService.getMovies({ tags });
-            res.status(200).json({ data: movies, messages: 'movies listed' });
+            res.status(200).json({ data: movies, message: 'movies listed' });
         } catch (error) {
             next(error);
         }
@@ -36,7 +36,7 @@ function moviesAPI(app) {
                 });
                 res.status(200).json({
                     data: retrievedMovie,
-                    messages: 'movie retrieved',
+                    message: 'movie retrieved',
                 });
             } catch (error) {
                 next(error);
@@ -55,7 +55,7 @@ function moviesAPI(app) {
                 });
                 res.status(201).json({
                     data: createdMovieId,
-                    messages: 'movie created',
+                    message: 'movie created',
                 });
             } catch (error) {
                 next(error);
@@ -78,7 +78,7 @@ function moviesAPI(app) {
 
                 res.status(200).json({
                     data: updatedMovieId,
-                    messages: 'movie updated',
+                    message: 'movie updated',
                 });
             } catch (error) {
                 next(error);
@@ -97,7 +97,7 @@ function moviesAPI(app) {
                 });
                 res.status(200).json({
                     data: deletedMovieId,
-                    messages: 'movie deleted',
+                    message: 'movie deleted',
                 });
             } catch (error) {
                 next(error);
