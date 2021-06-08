@@ -5,11 +5,12 @@ const app = express();
 
 const { config } = require('./config');
 const moviesAPI = require('./routes/movies');
+const userMoviesAPI = require('./routes/userMovies');
 
 const {
-    logErrors,
-    wrapError,
-    errorHandler,
+  logErrors,
+  wrapError,
+  errorHandler,
 } = require('./utils/middleware/errorHandlers');
 
 const notFoundHandler = require('./utils/middleware/notFoundHandler');
@@ -20,7 +21,9 @@ app.use(morgan(config.dev ? 'dev' : 'common'));
 // body parser
 app.use(express.json());
 
+// routes
 moviesAPI(app);
+userMoviesAPI(app);
 
 // Catch 404
 app.use(notFoundHandler);
@@ -31,5 +34,5 @@ app.use(wrapError);
 app.use(errorHandler);
 
 app.listen(config.port, () => {
-    debug(`Listening http://localhost:${config.port}`);
+  debug(`Listening http://localhost:${config.port}`);
 });
