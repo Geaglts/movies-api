@@ -4,8 +4,9 @@ const debug = require('debug')('app:server');
 const app = express();
 
 const { config } = require('./config');
-const moviesAPI = require('./routes/movies');
-const userMoviesAPI = require('./routes/userMovies');
+const moviesApi = require('./routes/movies');
+const userMoviesApi = require('./routes/userMovies');
+const authApi = require('./routes/auth');
 
 const {
   logErrors,
@@ -22,8 +23,9 @@ app.use(morgan(config.dev ? 'dev' : 'common'));
 app.use(express.json());
 
 // routes
-moviesAPI(app);
-userMoviesAPI(app);
+moviesApi(app);
+userMoviesApi(app);
+authApi(app);
 
 // Catch 404
 app.use(notFoundHandler);
