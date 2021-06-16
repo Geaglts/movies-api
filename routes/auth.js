@@ -6,7 +6,10 @@ const ApiKeyService = require('../services/apiKeys');
 const UserService = require('../services/users');
 const validationHandler = require('../utils/middleware/validationHandler');
 
-const { createUserSchema } = require('../utils/schemas/users');
+const {
+  createUserSchema,
+  createProviderUserSchema,
+} = require('../utils/schemas/users');
 
 const { config } = require('../config');
 
@@ -67,6 +70,41 @@ function authApi(app) {
         res.status(200).json({
           data: createdUserId,
           message: 'user created',
+        });
+      } catch (error) {
+        next(error);
+      }
+    }
+  );
+
+  router.post(
+    '/sign-provider',
+    validationHandler(createProviderUserSchema),
+    async function (req, res, next) {
+      const { body } = req;
+      const { apiKeyToken, ...user } = body;
+      if (!apiKeyToken) {
+        return next(boom.unauthorized('apiKeyToken is required'));
+      }
+      try {
+        const queriedUser = await userService.getOrCreateUser({ user });
+        const apiKey = await apiKeyService.getApiKey({ token: apiKeyToken });
+        if (!apiKey) {
+          return next(boom.unauthorized());
+        }
+        const { _id: id, email, name } = queriedUser;
+        const payload = {
+          sub: id,
+          email,
+          name,
+          scopes: apiKey.scopes,
+        };
+        const token = jwt.sign(payload, config.authJwtSecret, {
+          expiresIn: '15m',
+        });
+        res.status(200).json({
+          token,
+          user: { id, email, name },
         });
       } catch (error) {
         next(error);
