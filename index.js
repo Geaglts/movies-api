@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const helmet = require('helmet');
 const debug = require('debug')('app:server');
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(morgan(config.dev ? 'dev' : 'common'));
 
 // body parser
 app.use(express.json());
+app.use(helmet());
 
 // routes
 moviesApi(app);
