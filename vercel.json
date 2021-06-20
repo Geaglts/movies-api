@@ -1,17 +1,20 @@
 {
-    "name": "platzivideo",
-    "version": 2,
-    "builds": [
-        {
-            "src": "index.js",
-            "use": "@vercel/node"
-        }
-    ],
-    "routes": [{ "src": "/(.*)", "dest": "index.js" }],
-    "env": {
-        "DB_USER": "@platzivideos-db-user",
-        "DB_PASSWORD": "@platzivideos-db-password",
-        "DB_NAME": "@platzivideos-db-name",
-        "DB_HOST": "@platzivideos-db-host"
+  "name": "platzivideo",
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
     }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "index.js" }],
+  "env": {
+    "DB_USER": "@platzivideos-db-user",
+    "DB_PASSWORD": "@platzivideos-db-password",
+    "DB_NAME": "@platzivideos-db-name",
+    "DB_HOST": "@platzivideos-db-host",
+    "AUTH_JWT_SECRET": "@platzivideos-auth-jwt-secret",
+    "PUBLIC_API_KEY_TOKEN": "@platzivideos-public-api-key-token",
+    "ADMIN_API_KEY_TOKEN": "@platzivideos-admin-api-key-token"
+  }
 }
