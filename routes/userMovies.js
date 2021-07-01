@@ -27,7 +27,9 @@ function userMoviesApi(app) {
     async (req, res, next) => {
       const { _id: userId } = req.user;
       try {
-        const userMovies = await userMoviesService.getUserMovies({ userId });
+        const userMovies = await userMoviesService.getUserMovies({
+          userId: String(userId),
+        });
         res
           .status(200)
           .json({ data: userMovies, message: 'user movies listed' });
